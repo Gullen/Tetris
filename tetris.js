@@ -15,6 +15,9 @@ function setup(){
     let canvas = createCanvas(x,y);
     background(100,100,100);
 
+    song = createAudio('sounds/tetris.mp3');
+    song.loop();
+
     gameBoard = createBoard();
     activeBoard = createBoard();
     //console.log(gameBoard, activeBoard);
