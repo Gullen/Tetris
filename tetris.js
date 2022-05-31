@@ -2,9 +2,11 @@
 const blockSize = 24;
 const x = 576;
 const y = 816;
-
 const boardX = 7;
 const boardY = 7;
+
+var moving = false;
+var fps = 1;
 
 var gameBoard;
 var activeBoard;
@@ -15,18 +17,30 @@ function setup(){
 
     gameBoard = createBoard();
     activeBoard = createBoard();
-    console.log(gameBoard);
-
-    console.log("width: " + width / 24);
-    console.log("height: " + height / 24);
-
-    drawBoard();
+    //console.log(gameBoard, activeBoard);
 }
 
 function draw(){
-    //drawBoard(); <- only when changes
-    drawActiveBoard();
+    frameRate(fps);
+    //Draw Blank Board
+    fill(0, 0, 0);
+    rect(convertPixels(boardY), convertPixels(boardX), convertPixels(10), convertPixels(20));
+
+    //Spawn New Tetromino
+    if (moving == false){
+        activeBoard = spawnTetromino(activeBoard);
+        moving = true;
+        console.log("Tetromino Spawned");
+    }
+
+    drawBoard(activeBoard);
+
+    activeBoard, moving = moveTetrominoDown(activeBoard);
+
 }
+
+
+// Helper Functions
 
 function convertPixels(pix){
     return pix * 24;
